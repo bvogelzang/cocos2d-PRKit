@@ -67,7 +67,10 @@
     textureCoordinates = (CGPoint *) malloc(sizeof(CGPoint) * areaTrianglePointCount);
     
     for (int i = 0; i < areaTrianglePointCount; i++) {
-        areaTrianglePoints[i] = [[triangulatedPoints objectAtIndex:i] CGPointValue];
+    	if ([[CCDirector sharedDirector] enableRetinaDisplay:YES])
+    		areaTrianglePoints[i] = ccpMult([[triangulatedPoints objectAtIndex:i] CGPointValue], 2.0);
+        else
+        	areaTrianglePoints[i] = [[triangulatedPoints objectAtIndex:i] CGPointValue];
     }
     
     [self calculateTextureCoordinates];
